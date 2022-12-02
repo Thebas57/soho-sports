@@ -1,0 +1,50 @@
+.container-match {
+  height: auto;
+  .header {
+    padding: 15px 0 50px 0;
+    text-align: center;
+  }
+  .match {
+    display: grid;
+    grid-template-columns: 60% 40%;
+    .list-matchs {
+      text-align: center;
+      padding: 0 0 0 30px;
+      .line-match {
+        padding-bottom: 15px;
+      }
+      input {
+        margin: 0 10px 0 10px;
+        width: 5%;
+      }
+    }
+  }
+  .filter-match {
+    border: 2px solid black;
+    margin-right: 50px;
+    padding: 10px 0 0 20px;
+    height: auto;
+    .filtre {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      .line-filtre{
+        display: flex;
+        justify-content: space-around;
+      }
+    }
+  }
+
+  @media screen and (max-width: 992px) {
+    .match {
+      grid-template-columns: 1fr;
+      .list-matchs {
+        padding: 0;
+      }
+      .filter-match {
+        position: absolute;
+        top: 0;
+      }
+    }
+  }
+}

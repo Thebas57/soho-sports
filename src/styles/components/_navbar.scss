@@ -1,0 +1,12 @@
+.navbar-nav {
+  gap: 50px;
+  a svg {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .navbar-nav {
+    flex-direction: row;
+  }
+}
