@@ -6,7 +6,7 @@
   }
   .match {
     display: grid;
-    grid-template-columns: 60% 40%;
+    grid-template-columns: 65% 35%;
     .list-matchs {
       text-align: center;
       padding: 0 0 0 30px;
@@ -21,9 +21,11 @@
   }
   .filter-match {
     border: 2px solid black;
+    border-radius: 20px;
+    position: relative;
     margin-right: 50px;
     padding: 10px 0 0 20px;
-    height: auto;
+    height: 140px;
     .filtre {
       display: flex;
       flex-direction: column;
@@ -31,6 +33,9 @@
       .line-filtre{
         display: flex;
         justify-content: space-around;
+        div{
+          min-width: 35%
+        }
       }
     }
   }
