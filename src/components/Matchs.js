@@ -1,12 +1,11 @@
-import axios from "axios";
 import React, { useEffect } from "react";
 import Filter from "./Filter";
 
 const Matchs = (props) => {
-  const matchs = () => {
-  };
+  const matchs = () => {};
 
   useEffect(() => {
+    console.log(props);
     matchs();
   });
 

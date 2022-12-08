@@ -1,7 +1,18 @@
+a{
+  text-decoration: none;
+}
+
 .navbar-nav {
+  text-decoration: none;
   gap: 50px;
   a svg {
     font-size: 2rem;
+  }
+  nav-link .active{
+    color: inherit;
+  }
+  .active-navlink{
+    color: white;
   }
 }
 

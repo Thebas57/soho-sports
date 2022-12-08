@@ -12,6 +12,7 @@ import {
 } from "react-icons/fa";
 import Matchs from "./Matchs";
 import Leagues from "./Leagues";
+import { NavLink } from "react-router-dom";
 
 const NavbarHead = () => {
   const [selectSport, setSelectSport] = useState("foot");
@@ -19,7 +20,9 @@ const NavbarHead = () => {
     <>
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand href="#home">SOHO SPORT</Navbar.Brand>
+          <NavLink exact to="/" className="navbar-brand">
+            SOHO SPORT
+          </NavLink>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
@@ -30,39 +33,58 @@ const NavbarHead = () => {
               </NavDropdown>
             </Nav>
             <Nav>
-              <Nav.Link
-                eventKey={1}
-                href="#"
-                onClick={(e) => setSelectSport("basketball")}
+              <NavLink
+                to={{
+                  pathname: "/leagues",
+                  name: "basketball",
+                }}
+                exact
+                className="nav-link"
+                activeClassName="noclass"
+                onClick={(e) => e.target.classList.toggle('active-navlink')}
               >
                 <FaBasketballBall />
-              </Nav.Link>
-              <Nav.Link
-                eventKey={2}
-                href="#"
-                onClick={(e) => setSelectSport("rugby")}
+              </NavLink>
+              <NavLink
+                to={{
+                  pathname: "/leagues",
+                  name: "rugby",
+                }}
+                exact
+                className="nav-link"
+                activeClassName="noclass"
+                onClick={(e) => e.target.classList.toggle('active-navlink')}
               >
                 <FaFootballBall />
-              </Nav.Link>
-              <Nav.Link
-                eventKey={3}
-                href="#"
-                onClick={(e) => setSelectSport("foot")}
+              </NavLink>
+              <NavLink
+                to={{
+                  pathname: "/leagues",
+                  name: "foot",
+                }}
+                exact
+                className="nav-link"
+                activeClassName="noclass"
+                onClick={(e) => e.target.classList.toggle('active-navlink')}
               >
                 <FaFutbol />
-              </Nav.Link>
-              <Nav.Link
-                eventKey={4}
-                href="#"
-                onClick={(e) => setSelectSport("volley")}
+              </NavLink>
+              <NavLink
+                to={{
+                  pathname: "/leagues",
+                  name: "volley",
+                }}
+                exact
+                className="nav-link"
+                activeClassName="noclass"
+                onClick={(e) => e.target.classList.toggle('active-navlink')}
               >
                 <FaVolleyballBall />
-              </Nav.Link>
+              </NavLink>
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      {selectSport !== "" ? <Leagues name={selectSport} /> : null}
     </>
   );
 };

@@ -19,11 +19,16 @@
       height: auto;
       padding: 5px;
       align-items: center;
-      border: 1px solid black;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
       border-radius: 20px;
       position: relative;
       &:before {
-        background-color: black;
+        background: linear-gradient(
+          90.21deg,
+          rgba(21, 31, 67, 0.655) 5.91%,
+          rgba(22, 13, 60, 0.666) 111.58%
+        );
         content: "";
         width: 100%;
         height: 0%;
@@ -32,9 +37,46 @@
         border-radius: 20px;
         transition: 0.4s ease-in-out;
       }
+      &:hover {
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+          0 10px 10px rgba(0, 0, 0, 0.22);
+        h5 {
+          opacity: 0;
+        }
+        .text-hide {
+          span {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white;
+          }
+          opacity: 1;
+        }
+      }
       &:hover:before {
         transition: 0.4s ease-in-out;
         height: 100%;
+      }
+      .text-hide {
+        opacity: 0;
+        position: absolute;
+        height: 80%;
+        justify-content: space-between;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+      }
+      .btn-league {
+        background-color: black;
+        color: white;
+        border: 2px solid white;
+        border-radius: 20px;
+        width: 50%;
+        transition: 0.5s;
+        &:hover {
+          background-color: white;
+          color: black;
+        }
       }
     }
   }
