@@ -1,13 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { getLeaguesFoot, getMatchsFoot, makeRequest } from "../api/foot-api";
+import { NavLink } from "react-router-dom";
+import { getLeaguesBasket, getLeaguesFoot } from "../api/foot-api";
 import Matchs from "./Matchs";
 
 const Leagues = (props) => {
-  
   const [leagues, setLeagues] = useState([]);
   const [isLoadLeagues, setIsLoadLeagues] = useState(false);
-  const [matchs, setMatchs] = useState([]);
 
   // Créer un tableau de leagues en fonction du sport
   const loadLeagues = (sport) => {
@@ -22,19 +21,17 @@ const Leagues = (props) => {
           console.log(error);
         });
     }
-  };
-
-  // Créer un tableau de leagues en fonction du sport et de la league
-  const loadMatchs = (id) => {
-    makeRequest(id)
-      .then(function (response) {
-        setMatchs(response.data.response);
-        setLeagues([]);
-        console.log(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    if (sport === "basketball") {
+      axios(getLeaguesBasket)
+        .then(function (response) {
+          setLeagues(response.data.response);
+          setIsLoadLeagues(true);
+          console.log(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
   };
 
   useEffect(() => {
@@ -63,21 +60,22 @@ const Leagues = (props) => {
                     <span>{league.league.name}</span>
                     <div
                       className="btn-league"
-                      onClick={(e) => loadMatchs(league.league.id)}
                     >
-                      + d'infos
+                      <NavLink
+                        to={{
+                          pathname: "/league",
+                          league: league.league,
+                        }}
+                        exact
+                      >
+                        + d'infos
+                      </NavLink>
                     </div>
                   </div>
                 </div>
               );
             })}
           </div>
-        </div>
-      ) : null}
-      {matchs.length > 0 ? (
-        <div>
-          <button onClick={(e) => loadLeagues(props.name)}>ICI</button>
-          <Matchs />
         </div>
       ) : null}
     </>

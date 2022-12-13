@@ -1,0 +1,62 @@
+.league-container {
+  .header {
+    padding: 15px 0 50px 0;
+    text-align: center;
+  }
+  .league {
+    display: grid;
+    grid-template-columns: 20% 70%;
+    grid-gap: 10px;
+    width: 95%;
+    margin: auto;
+    text-align: center;
+    .list-leagues {
+    }
+    .matchs {
+      .filter-matchs {
+        margin: auto;
+        display: flex;
+        align-items: center;
+        width: 50%;
+        justify-content: space-around;
+        span {
+          border: 1px solid black;
+          padding: 2px 15px 2px 15px;
+          cursor: pointer;
+          &:hover {
+            background-color: rgb(119, 111, 111);
+          }
+        }
+      }
+      .list-matchs {
+        .match-detail {
+          align-items: center;
+          margin-top: 20px !important;
+          width: 100%;
+          display: flex;
+          margin: auto;
+          justify-content: space-around;
+          .resultat {
+            align-items: center;
+            display: flex;
+            width: 40%;
+            justify-content: space-around;
+            .logo-ekip {
+              img {
+                height: 50px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 800px) {
+    .league {
+      grid-template-columns: 1fr;
+    }
+    .list-leagues {
+      display: none;
+    }
+  }
+}

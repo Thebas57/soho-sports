@@ -16,6 +16,22 @@ import { NavLink } from "react-router-dom";
 
 const NavbarHead = () => {
   const [selectSport, setSelectSport] = useState("foot");
+
+  /* Toggle la classe active link et enlève la classe sur les autres */
+  const toggleActiveLink = (e) => {
+    let elements = document.getElementsByClassName("active-navlink");
+    if (elements.length > 0) {
+      // Parcours le tableau des éléments récupérés
+      for (var i = 0; i < elements.length; i++) {
+        var element = elements[i];
+
+        // Fait quelque chose avec l'élément courant
+        element.classList.remove("active-navlink");
+      }
+    }
+    e.target.classList.toggle("active-navlink");
+  };
+
   return (
     <>
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -41,7 +57,7 @@ const NavbarHead = () => {
                 exact
                 className="nav-link"
                 activeClassName="noclass"
-                onClick={(e) => e.target.classList.toggle('active-navlink')}
+                onClick={(e) => toggleActiveLink(e)}
               >
                 <FaBasketballBall />
               </NavLink>
@@ -53,7 +69,7 @@ const NavbarHead = () => {
                 exact
                 className="nav-link"
                 activeClassName="noclass"
-                onClick={(e) => e.target.classList.toggle('active-navlink')}
+                onClick={(e) => toggleActiveLink(e)}
               >
                 <FaFootballBall />
               </NavLink>
@@ -65,7 +81,7 @@ const NavbarHead = () => {
                 exact
                 className="nav-link"
                 activeClassName="noclass"
-                onClick={(e) => e.target.classList.toggle('active-navlink')}
+                onClick={(e) => toggleActiveLink(e)}
               >
                 <FaFutbol />
               </NavLink>
@@ -77,7 +93,7 @@ const NavbarHead = () => {
                 exact
                 className="nav-link"
                 activeClassName="noclass"
-                onClick={(e) => e.target.classList.toggle('active-navlink')}
+                onClick={(e) => toggleActiveLink(e)}
               >
                 <FaVolleyballBall />
               </NavLink>
