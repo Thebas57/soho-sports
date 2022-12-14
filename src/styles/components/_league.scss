@@ -1,7 +1,16 @@
 .league-container {
+  height: auto;
   .header {
     padding: 15px 0 50px 0;
     text-align: center;
+    span {
+      cursor: pointer;
+      position: absolute;
+      left: 0;
+      top: 0;
+      padding: 69px 0 0 20px;
+      font-size: 2rem;
+    }
   }
   .league {
     display: grid;

@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { getLeaguesBasket, getLeaguesFoot } from "../api/foot-api";
+import { getLeaguesBasket, getLeaguesFoot, getLeaguesRugby, getLeaguesVolley } from "../api/foot-api";
 import Matchs from "./Matchs";
 
 const Leagues = (props) => {
@@ -24,9 +24,49 @@ const Leagues = (props) => {
     if (sport === "basketball") {
       axios(getLeaguesBasket)
         .then(function (response) {
-          setLeagues(response.data.response);
+          let res = response.data.response;
+          // Parcourez le tableau en utilisant une boucle for
+          for (const element of res) {
+            // Ajoutez un index à chaque objet dans le tableau
+            element.league = element;
+          }
+          setLeagues(res);
           setIsLoadLeagues(true);
-          console.log(response.data);
+          console.log(res);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+    if (sport === "rugby") {
+      axios(getLeaguesRugby)
+        .then(function (response) {
+          let res = response.data.response;
+          // Parcourez le tableau en utilisant une boucle for
+          for (const element of res) {
+            // Ajoutez un index à chaque objet dans le tableau
+            element.league = element;
+          }
+          setLeagues(res);
+          setIsLoadLeagues(true);
+          console.log(res);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+    if (sport === "volley") {
+      axios(getLeaguesVolley)
+        .then(function (response) {
+          let res = response.data.response;
+          // Parcourez le tableau en utilisant une boucle for
+          for (const element of res) {
+            // Ajoutez un index à chaque objet dans le tableau
+            element.league = element;
+          }
+          setLeagues(res);
+          setIsLoadLeagues(true);
+          console.log(res);
         })
         .catch(function (error) {
           console.log(error);
@@ -46,7 +86,7 @@ const Leagues = (props) => {
       {leagues.length > 0 ? (
         <div className="leagues-container">
           <div className="header">
-            <h1>Liste des leagues de {props.name} en France</h1>
+            <h1>Liste des leagues de {props.location.name} en France</h1>
           </div>
           <div className="list-leagues">
             {leagues?.map((league) => {
@@ -58,13 +98,12 @@ const Leagues = (props) => {
                   </div>
                   <div className="text-hide">
                     <span>{league.league.name}</span>
-                    <div
-                      className="btn-league"
-                    >
+                    <div className="btn-league">
                       <NavLink
                         to={{
                           pathname: "/league",
                           league: league.league,
+                          name: props.location.name
                         }}
                         exact
                       >
