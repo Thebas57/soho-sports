@@ -6,7 +6,6 @@ import {
   Redirect,
 } from "react-router-dom";
 import "./styles/index.scss";
-import Matchs from "./components/Matchs";
 import Leagues from "./components/Leagues";
 import Home from "./components/Home";
 import League from "./components/League";
@@ -20,7 +19,6 @@ function App() {
         <Route exact path="/" component={Home} />
           <Route exact path="/leagues" component={Leagues} />
           <Route exact path="/league" component={League} />
-          <Route exact path="/matchs" component={Matchs} />
           <Redirect to="/" />
         </Switch>
       </div>

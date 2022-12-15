@@ -1,15 +1,21 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { getLeaguesBasket, getLeaguesFoot, getLeaguesRugby, getLeaguesVolley } from "../api/foot-api";
-import Matchs from "./Matchs";
+import {
+  getLeaguesBasket,
+  getLeaguesFoot,
+  getLeaguesRugby,
+  getLeaguesVolley,
+} from "../api/foot-api";
 
 const Leagues = (props) => {
   const [leagues, setLeagues] = useState([]);
   const [isLoadLeagues, setIsLoadLeagues] = useState(false);
+  const [sportName, setSportName] = useState();
 
   // Créer un tableau de leagues en fonction du sport
   const loadLeagues = (sport) => {
+    console.log("sport : ", sport)
     if (sport === "foot") {
       axios(getLeaguesFoot)
         .then(function (response) {
@@ -75,18 +81,20 @@ const Leagues = (props) => {
   };
 
   useEffect(() => {
-    console.log(props.location.name);
-    if (props.location.name !== "") {
-      loadLeagues(props.location.name);
-    }
-  }, [isLoadLeagues, props.location.name]);
+    if ("name" in props.location) {
+      localStorage.setItem("name", props.location.name);
+      setSportName(props.location.name);
+    } else setSportName(localStorage.getItem("name"));
+
+    if (sportName !== "") loadLeagues(sportName);
+  }, [props.location, sportName]);
 
   return (
     <>
       {leagues.length > 0 ? (
         <div className="leagues-container">
           <div className="header">
-            <h1>Liste des leagues de {props.location.name} en France</h1>
+            <h1>Liste des leagues de {sportName} en France</h1>
           </div>
           <div className="list-leagues">
             {leagues?.map((league) => {
@@ -103,7 +111,7 @@ const Leagues = (props) => {
                         to={{
                           pathname: "/league",
                           league: league.league,
-                          name: props.location.name
+                          name: sportName,
                         }}
                         exact
                       >

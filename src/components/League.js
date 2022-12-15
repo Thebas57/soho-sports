@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { makeRequest } from "../api/foot-api";
 import Match from "./Match";
 import { FaArrowLeft } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 
 const League = (props) => {
-  console.log(props.location);
   const [matchs, setMatchs] = useState([]);
   const [isLoadMatchs, setIsLoadMatchs] = useState(false);
+  const [sportName, setSportName] = useState("");
+  const [leagueID, setLeagueID] = useState();
 
   // Créer un tableau de matchs en fonction de la ligue
   const loadMatchs = (sport, id) => {
@@ -28,16 +30,34 @@ const League = (props) => {
   };
 
   useEffect(() => {
-    loadMatchs(props.location.name, props.location.league.id);
-  }, [isLoadMatchs, props.location.league.id, props.location.name]);
+    if ("name" in props.location) {
+      localStorage.setItem("sport", props.location.name);
+      localStorage.setItem("league", props.location.league.id);
+      setSportName(props.location.name);
+      setLeagueID(props.location.league.id);
+    } else {
+      setSportName(localStorage.getItem("sport"));
+      setLeagueID(localStorage.getItem("league"));
+    }
+
+    if (sportName !== "" && leagueID !== "") loadMatchs(sportName, leagueID);
+  }, [leagueID, props.location, sportName]);
 
   return (
     <div className="league-container">
       <div className="header">
-        <span>
-          <FaArrowLeft />
-        </span>
-        <h1>{props.location.league.name}</h1>
+        <NavLink
+          to={{
+            pathname: "/leagues",
+            name: sportName,
+          }}
+        >
+          <span>
+            <FaArrowLeft />
+          </span>
+        </NavLink>
+
+        <h1>Liste des matchs de {sportName}</h1>
       </div>
       <div className="league">
         <div className="list-leagues">
@@ -64,7 +84,7 @@ const League = (props) => {
               return (
                 <Match
                   match={match}
-                  sport={props.location.name}
+                  sport={sportName}
                   key={match.fixture.id}
                 ></Match>
               );

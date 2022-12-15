@@ -10,6 +10,11 @@
       top: 0;
       padding: 69px 0 0 20px;
       font-size: 2rem;
+      color: grey;
+      transition: 0.2s ease-in-out;
+      &:hover {
+        color: black;
+      }
     }
   }
   .league {
@@ -19,8 +24,6 @@
     width: 95%;
     margin: auto;
     text-align: center;
-    .list-leagues {
-    }
     .matchs {
       .filter-matchs {
         margin: auto;

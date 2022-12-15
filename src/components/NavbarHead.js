@@ -10,7 +10,6 @@ import {
   FaFutbol,
   FaVolleyballBall,
 } from "react-icons/fa";
-import Matchs from "./Matchs";
 import Leagues from "./Leagues";
 import { NavLink } from "react-router-dom";
 
