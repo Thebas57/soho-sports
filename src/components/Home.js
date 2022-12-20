@@ -4,50 +4,53 @@ import { NavLink } from "react-router-dom";
 const Home = () => {
   return (
     <div className="home">
-      <NavLink
-        to={{
-          pathname: "/leagues",
-          name: "basketball",
-        }}
-        exact
-      >
-        <div>
+      <div>
+        <NavLink
+          to={{
+            pathname: "/leagues",
+            name: "basketball",
+          }}
+          exact
+        >
           <img src="./img/basket.png" alt="" />
-        </div>
-      </NavLink>
-      <NavLink
-        to={{
-          pathname: "/leagues",
-          name: "foot",
-        }}
-        exact
-      >
-        <div>
+        </NavLink>
+      </div>
+
+      <div>
+        <NavLink
+          to={{
+            pathname: "/leagues",
+            name: "foot",
+          }}
+          exact
+        >
           <img src="./img/foot.png" alt="" />
-        </div>
-      </NavLink>
-      <NavLink
-        to={{
-          pathname: "/leagues",
-          name: "volley",
-        }}
-        exact
-      >
-        <div>
+        </NavLink>
+      </div>
+
+      <div>
+        <NavLink
+          to={{
+            pathname: "/leagues",
+            name: "volley",
+          }}
+          exact
+        >
           <img src="./img/volley.webp" alt="" />
-        </div>
-      </NavLink>
-      <NavLink
-        to={{
-          pathname: "/leagues",
-          name: "rugby",
-        }}
-        exact
-      >
-        <div>
+        </NavLink>
+      </div>
+
+      <div>
+        <NavLink
+          to={{
+            pathname: "/leagues",
+            name: "rugby",
+          }}
+          exact
+        >
           <img src="./img/rugby.jpg" alt="" />
-        </div>
-      </NavLink>
+        </NavLink>
+      </div>
     </div>
   );
 };

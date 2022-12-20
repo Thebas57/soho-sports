@@ -9,6 +9,7 @@ const League = (props) => {
   const [isLoadMatchs, setIsLoadMatchs] = useState(false);
   const [sportName, setSportName] = useState("");
   const [leagueID, setLeagueID] = useState();
+  const [dateMatch, setDateMatch] = useState();
 
   // Créer un tableau de matchs en fonction de la ligue
   const loadMatchs = (sport, id) => {
@@ -28,6 +29,26 @@ const League = (props) => {
         console.log(error);
       });
   };
+
+  // Au changement de date, on retourne d'autres matchs
+  const handleDate = (date) => {
+    setDateMatch(date);
+    makeRequest(sportName, leagueID, date)
+    .then(function (response) {
+      response.data.response = response.data.response.slice(0, 10);
+      if (sportName === "basketball" || sportName === "rugby" || sportName === "volley") {
+        for (const element of response.data.response) {
+          element.fixture = element;
+        }
+      }
+      setMatchs(response.data.response);
+      setIsLoadMatchs(true);
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
 
   useEffect(() => {
     if ("name" in props.location) {
@@ -74,6 +95,7 @@ const League = (props) => {
         </div>
         <div className="matchs">
           <div className="filter-matchs">
+            <input type="date" name="" className="inputDate" id="" onChange={(e) => handleDate(e.target.value)}/>
             <span>Tous</span>
             <span>Terminé</span>
             <span>En cours</span>
@@ -89,6 +111,9 @@ const League = (props) => {
                 ></Match>
               );
             })}
+            {matchs.length === 0 && (
+              <span className="info-match">Aucun match trouvé à cette date : {dateMatch} </span>
+            )}
           </div>
         </div>
       </div>

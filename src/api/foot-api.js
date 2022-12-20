@@ -44,7 +44,7 @@ export const getLeaguesVolley = {
   },
 };
 
-export const makeRequest = (sport, url) => {
+export const makeRequest = (sport, url, date) => {
   if (sport === "foot") {
     return axios({
       url: `https://v3.football.api-sports.io/fixtures?next=10&league=${url}&timezone=Europe/Paris`,
@@ -55,14 +55,26 @@ export const makeRequest = (sport, url) => {
       },
     });
   } else if (sport === "basketball") {
-    return axios({
-      url: `https://v1.basketball.api-sports.io/games?league=${url}&timezone=Europe/Paris&season=2021-2022`,
-      method: "get",
-      headers: {
-        "x-rapidapi-key": "623a51732218e67e6cc2226891a30545",
-        "x-rapidapi-host": "v1.basketball.api-sports.io",
-      },
-    });
+    console.log("ici : ", date);
+    if (date === undefined) {
+      return axios({
+        url: `https://v1.basketball.api-sports.io/games?league=${url}&timezone=Europe/Paris&season=2021-2022`,
+        method: "get",
+        headers: {
+          "x-rapidapi-key": "623a51732218e67e6cc2226891a30545",
+          "x-rapidapi-host": "v1.basketball.api-sports.io",
+        },
+      });
+    } else {
+      return axios({
+        url: `https://v1.basketball.api-sports.io/games?league=${url}&timezone=Europe/Paris&date=${date}&season=2021-2022`,
+        method: "get",
+        headers: {
+          "x-rapidapi-key": "623a51732218e67e6cc2226891a30545",
+          "x-rapidapi-host": "v1.basketball.api-sports.io",
+        },
+      });
+    }
   } else if (sport === "rugby") {
     return axios({
       url: `https://v1.rugby.api-sports.io/games?league=${url}&timezone=Europe/Paris&season=2022`,
