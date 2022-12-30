@@ -6,10 +6,10 @@ import { NavLink } from "react-router-dom";
 
 const League = (props) => {
   const [matchs, setMatchs] = useState([]);
-  const [isLoadMatchs, setIsLoadMatchs] = useState(false);
   const [sportName, setSportName] = useState("");
   const [leagueID, setLeagueID] = useState();
   const [dateMatch, setDateMatch] = useState();
+  const [filterMatch, setFilterMatch] = useState("Tous");
 
   // Créer un tableau de matchs en fonction de la ligue
   const loadMatchs = (sport, id) => {
@@ -22,13 +22,42 @@ const League = (props) => {
           }
         }
         setMatchs(response.data.response);
-        setIsLoadMatchs(true);
         console.log(response.data);
       })
       .catch(function (error) {
         console.log(error);
       });
   };
+
+  // Handle les filtres
+  const handleFilter = (e) => {
+    let elements = document.getElementsByClassName("filter");
+    if (elements.length > 0) {
+      // Parcours le tableau des éléments récupérés
+      for (let i = 0; i < elements.length; i++) {
+        let element = elements[i];
+
+        // Fait quelque chose avec l'élément courant
+        element.classList.remove("selected");
+      }
+    }
+    e.target.classList.toggle("selected");
+    console.log(e.target.innerText)
+    console.log(matchs)
+    setFilterMatch(e.target.value)
+
+    // On filtre les matchs pour récup que ceux dans l'état que l'on souhaite
+    switch(filterMatch){
+      case "Tous":
+        setMatchs(matchs.filter(match => match.status.long === "Game Finished"))
+        break;
+      case "Terminé":
+        setMatchs(matchs.filter(match => match.status.long === "Game"))
+        break;
+      default:
+        break;
+    }
+  }
 
   // Au changement de date, on retourne d'autres matchs
   const handleDate = (date) => {
@@ -42,7 +71,6 @@ const League = (props) => {
         }
       }
       setMatchs(response.data.response);
-      setIsLoadMatchs(true);
       console.log(response.data);
     })
     .catch(function (error) {
@@ -96,10 +124,10 @@ const League = (props) => {
         <div className="matchs">
           <div className="filter-matchs">
             <input type="date" name="" className="inputDate" id="" onChange={(e) => handleDate(e.target.value)}/>
-            <span>Tous</span>
-            <span>Terminé</span>
-            <span>En cours</span>
-            <span>Prévus</span>
+            <span className="filter selected" onClick={(e) => handleFilter(e)}>Tous</span>
+            <span className="filter" onClick={(e) => handleFilter(e)}>Terminé</span>
+            <span className="filter" onClick={(e) => handleFilter(e)}>En cours</span>
+            <span className="filter" onClick={(e) => handleFilter(e)}>Prévus</span>
           </div>
           <div className="list-matchs">
             {matchs?.map((match) => {

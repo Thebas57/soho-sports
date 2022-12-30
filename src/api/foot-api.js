@@ -46,14 +46,25 @@ export const getLeaguesVolley = {
 
 export const makeRequest = (sport, url, date) => {
   if (sport === "foot") {
-    return axios({
-      url: `https://v3.football.api-sports.io/fixtures?next=10&league=${url}&timezone=Europe/Paris`,
-      method: "get",
-      headers: {
-        "x-rapidapi-key": "623a51732218e67e6cc2226891a30545",
-        "x-rapidapi-host": "v3.football.api-sports.io",
-      },
-    });
+    if (date === undefined) {
+      return axios({
+        url: `https://v3.football.api-sports.io/fixtures?next=10&league=${url}&timezone=Europe/Paris`,
+        method: "get",
+        headers: {
+          "x-rapidapi-key": "623a51732218e67e6cc2226891a30545",
+          "x-rapidapi-host": "v3.football.api-sports.io",
+        },
+      });
+    } else {
+      return axios({
+        url: `https://v3.football.api-sports.io/fixtures?league=${url}&timezone=Europe/Paris&date=${date}&season=2022`,
+        method: "get",
+        headers: {
+          "x-rapidapi-key": "623a51732218e67e6cc2226891a30545",
+          "x-rapidapi-host": "v3.football.api-sports.io",
+        },
+      });
+    }
   } else if (sport === "basketball") {
     console.log("ici : ", date);
     if (date === undefined) {
@@ -76,20 +87,40 @@ export const makeRequest = (sport, url, date) => {
       });
     }
   } else if (sport === "rugby") {
-    return axios({
-      url: `https://v1.rugby.api-sports.io/games?league=${url}&timezone=Europe/Paris&season=2022`,
-      method: "get",
-      headers: {
-        "x-rapidapi-key": "623a51732218e67e6cc2226891a30545",
-      },
-    });
+    if (date === undefined) {
+      return axios({
+        url: `https://v1.rugby.api-sports.io/games?league=${url}&timezone=Europe/Paris&season=2022`,
+        method: "get",
+        headers: {
+          "x-rapidapi-key": "623a51732218e67e6cc2226891a30545",
+        },
+      });
+    } else {
+      return axios({
+        url: `https://v1.rugby.api-sports.io/games?league=${url}&timezone=Europe/Paris&date=${date}&season=2022`,
+        method: "get",
+        headers: {
+          "x-rapidapi-key": "623a51732218e67e6cc2226891a30545",
+        },
+      });
+    }
   } else if (sport === "volley") {
-    return axios({
-      url: `https://v1.volleyball.api-sports.io/games?league=${url}&timezone=Europe/Paris&season=2022`,
-      method: "get",
-      headers: {
-        "x-rapidapi-key": "623a51732218e67e6cc2226891a30545",
-      },
-    });
+    if (date === undefined) {
+      return axios({
+        url: `https://v1.volleyball.api-sports.io/games?league=${url}&timezone=Europe/Paris&season=2022`,
+        method: "get",
+        headers: {
+          "x-rapidapi-key": "623a51732218e67e6cc2226891a30545",
+        },
+      });
+    } else {
+      return axios({
+        url: `https://v1.volleyball.api-sports.io/games?league=${url}&timezone=Europe/Paris&date=${date}&season=2022`,
+        method: "get",
+        headers: {
+          "x-rapidapi-key": "623a51732218e67e6cc2226891a30545",
+        },
+      });
+    }
   }
 };
