@@ -42,41 +42,31 @@ const League = (props) => {
       }
     }
     e.target.classList.toggle("selected");
-    console.log(e.target.innerText)
-    console.log(matchs)
-    setFilterMatch(e.target.value)
-
-    // On filtre les matchs pour récup que ceux dans l'état que l'on souhaite
-    switch(filterMatch){
-      case "Tous":
-        setMatchs(matchs.filter(match => match.status.long === "Game Finished"))
-        break;
-      case "Terminé":
-        setMatchs(matchs.filter(match => match.status.long === "Game"))
-        break;
-      default:
-        break;
-    }
-  }
+    setFilterMatch(e.target.id);
+  };
 
   // Au changement de date, on retourne d'autres matchs
   const handleDate = (date) => {
     setDateMatch(date);
     makeRequest(sportName, leagueID, date)
-    .then(function (response) {
-      response.data.response = response.data.response.slice(0, 10);
-      if (sportName === "basketball" || sportName === "rugby" || sportName === "volley") {
-        for (const element of response.data.response) {
-          element.fixture = element;
+      .then(function (response) {
+        response.data.response = response.data.response.slice(0, 10);
+        if (
+          sportName === "basketball" ||
+          sportName === "rugby" ||
+          sportName === "volley"
+        ) {
+          for (const element of response.data.response) {
+            element.fixture = element;
+          }
         }
-      }
-      setMatchs(response.data.response);
-      console.log(response.data);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }
+        setMatchs(response.data.response);
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   useEffect(() => {
     if ("name" in props.location) {
@@ -123,24 +113,82 @@ const League = (props) => {
         </div>
         <div className="matchs">
           <div className="filter-matchs">
-            <input type="date" name="" className="inputDate" id="" onChange={(e) => handleDate(e.target.value)}/>
-            <span className="filter selected" onClick={(e) => handleFilter(e)}>Tous</span>
-            <span className="filter" onClick={(e) => handleFilter(e)}>Terminé</span>
-            <span className="filter" onClick={(e) => handleFilter(e)}>En cours</span>
-            <span className="filter" onClick={(e) => handleFilter(e)}>Prévus</span>
+            <input
+              type="date"
+              name=""
+              className="inputDate"
+              id=""
+              onChange={(e) => handleDate(e.target.value)}
+            />
+            <span
+              className="filter selected"
+              id="Tous"
+              onClick={(e) => handleFilter(e)}
+            >
+              Tous
+            </span>
+            <span
+              className="filter"
+              id="Finished"
+              onClick={(e) => handleFilter(e)}
+            >
+              Terminé
+            </span>
+            <span
+              className="filter"
+              id="En cours"
+              onClick={(e) => handleFilter(e)}
+            >
+              En cours
+            </span>
+            <span
+              className="filter"
+              id="Not Started"
+              onClick={(e) => handleFilter(e)}
+            >
+              Prévus
+            </span>
           </div>
           <div className="list-matchs">
-            {matchs?.map((match) => {
-              return (
-                <Match
-                  match={match}
-                  sport={sportName}
-                  key={match.fixture.id}
-                ></Match>
-              );
-            })}
+            {filterMatch !== "Tous" ? (
+              <>
+                {matchs
+                  ?.filter((match) => match.status.long === filterMatch)
+                  .map((match) => match).length > 0 ? (
+                  matchs
+                    ?.filter((match) => match.status.long === filterMatch)
+                    .map((match) => {
+                      return (
+                        <Match
+                          match={match}
+                          sport={sportName}
+                          key={match.fixture.id}
+                        ></Match>
+                      );
+                    })
+                ) : (
+                  <span className="info-match">
+                    Aucun match avec ce filtre trouvé à cette date
+                  </span>
+                )}
+              </>
+            ) : (
+              <>
+                {matchs?.map((match) => {
+                  return (
+                    <Match
+                      match={match}
+                      sport={sportName}
+                      key={match.fixture.id}
+                    ></Match>
+                  );
+                })}
+              </>
+            )}
             {matchs.length === 0 && (
-              <span className="info-match">Aucun match trouvé à cette date : {dateMatch} </span>
+              <span className="info-match">
+                Aucun match trouvé à cette date : {dateMatch}{" "}
+              </span>
             )}
           </div>
         </div>

@@ -29,12 +29,8 @@
         margin: auto;
         display: flex;
         align-items: center;
-        width: 50%;
+        width: 100%;
         justify-content: space-around;
-        .inputDate{
-          position: absolute;
-          left: 26%;
-        }
         span {
           border: 1px solid black;
           padding: 2px 15px 2px 15px;
@@ -43,14 +39,14 @@
             background-color: rgb(119, 111, 111);
           }
         }
-        .selected{
+        .selected {
           background-color: black;
           color: white;
         }
       }
       .list-matchs {
         margin-top: 20px;
-        .info-match{
+        .info-match {
           color: red;
         }
         .match-detail {
@@ -78,9 +74,36 @@
   @media screen and (max-width: 800px) {
     .league {
       grid-template-columns: 1fr;
+      .matchs{
+        .filter-matchs{
+          flex-direction: column;
+          gap: 5px;
+          input, span{
+            width: 50%;
+          }
+        }
+        .list-matchs {
+          .match-detail{
+            flex-direction: column;
+            .resultat{
+              width: 80%;
+              &::after{
+                content: "";
+                position: absolute;
+                width: 70%;
+                height: 1px;
+                margin-top: 80px;
+                background-color: black;
+              }
+            }
+            margin-bottom: 40px;
+          }
+        }
+      }
     }
     .list-leagues {
       display: none;
     }
+
   }
 }
