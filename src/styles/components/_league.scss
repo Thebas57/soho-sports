@@ -70,6 +70,22 @@
         }
       }
     }
+    .list-leagues{
+      .leagueFav{
+        display: flex;
+        justify-content: space-between;
+        width: 70%;
+        margin: auto;
+        cursor: pointer;
+        color: rgb(97, 92, 92);
+        img{
+          height: 100%;
+        }
+        &:hover{
+          color: black;
+        }
+      }
+    }
   }
   @media screen and (max-width: 800px) {
     .league {

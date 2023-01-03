@@ -3,6 +3,7 @@ import { makeRequest } from "../api/foot-api";
 import Match from "./Match";
 import { FaArrowLeft } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import LeaguesFav from "./LeaguesFav";
 
 const League = (props) => {
   const [matchs, setMatchs] = useState([]);
@@ -10,12 +11,18 @@ const League = (props) => {
   const [leagueID, setLeagueID] = useState();
   const [dateMatch, setDateMatch] = useState();
   const [filterMatch, setFilterMatch] = useState("Tous");
+  const [leagues, setLeagues] = useState([]);
 
   // Créer un tableau de matchs en fonction de la ligue
   const loadMatchs = (sport, id) => {
     makeRequest(sport, id)
       .then(function (response) {
         response.data.response = response.data.response.slice(0, 10);
+        if (sport === "foot") {
+          for (const element of response.data.response) {
+            element.status = element.fixture.status;
+          }
+        }
         if (sport === "basketball" || sport === "rugby" || sport === "volley") {
           for (const element of response.data.response) {
             element.fixture = element;
@@ -69,6 +76,7 @@ const League = (props) => {
   };
 
   useEffect(() => {
+    setLeagues(JSON.parse(localStorage.getItem("leagues")));
     if ("name" in props.location) {
       localStorage.setItem("sport", props.location.name);
       localStorage.setItem("league", props.location.league.id);
@@ -99,18 +107,7 @@ const League = (props) => {
         <h1>Liste des matchs de {sportName}</h1>
       </div>
       <div className="league">
-        <div className="list-leagues">
-          <h5>Mes ligues</h5>
-          <hr />
-          <span>Ligue 1</span>
-          <br />
-          <span>Ligue 1</span>
-          <br />
-          <span>Ligue 1</span>
-          <br />
-          <span>Ligue 1</span>
-          <br />
-        </div>
+        <LeaguesFav leagues={leagues} />
         <div className="matchs">
           <div className="filter-matchs">
             <input
@@ -129,7 +126,7 @@ const League = (props) => {
             </span>
             <span
               className="filter"
-              id="Finished"
+              id={sportName === "basketball" ? "Game Finished" : "Finished"}
               onClick={(e) => handleFilter(e)}
             >
               Terminé

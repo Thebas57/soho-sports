@@ -15,10 +15,20 @@ const Match = ({ match, sport }) => {
 
     return formattedDate;
   };
+
+  //Tableau état des matchs
+  const stateMatch = {
+    "Not Started" : "Prévus",
+    "Game Finished" : "Terminé",
+    "Finished" : "Terminé"
+  }
+
+  
+
   return (
     <div className="match-detail">
       <div className="horaire">{returnDate(match.fixture.timestamp)}</div>
-      <div className="state">{match.fixture.status.long}</div>
+      <div className="state">{stateMatch[match.fixture.status.long]}</div>
       <div className="resultat">
         <span className="logo-ekip">
           <img src={match.teams.home.logo} alt="logo-home" />

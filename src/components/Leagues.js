@@ -10,18 +10,18 @@ import {
 
 const Leagues = (props) => {
   const [leagues, setLeagues] = useState([]);
-  const [isLoadLeagues, setIsLoadLeagues] = useState(false);
   const [sportName, setSportName] = useState();
 
   // Créer un tableau de leagues en fonction du sport
   const loadLeagues = (sport) => {
-    console.log("sport : ", sport)
     if (sport === "foot") {
       axios(getLeaguesFoot)
         .then(function (response) {
           setLeagues(response.data.response);
-          setIsLoadLeagues(true);
-          console.log(response.data);
+          localStorage.setItem(
+            "leagues",
+            JSON.stringify(response.data.response)
+          );
         })
         .catch(function (error) {
           console.log(error);
@@ -31,14 +31,18 @@ const Leagues = (props) => {
       axios(getLeaguesBasket)
         .then(function (response) {
           let res = response.data.response;
+          console.log(res);
           // Parcourez le tableau en utilisant une boucle for
           for (const element of res) {
             // Ajoutez un index à chaque objet dans le tableau
-            element.league = element;
+            element.league = {
+              name: element.name,
+              logo: element.logo,
+              id: element.id,
+            };
           }
           setLeagues(res);
-          setIsLoadLeagues(true);
-          console.log(res);
+          localStorage.setItem("leagues", JSON.stringify(res));
         })
         .catch(function (error) {
           console.log(error);
@@ -51,11 +55,14 @@ const Leagues = (props) => {
           // Parcourez le tableau en utilisant une boucle for
           for (const element of res) {
             // Ajoutez un index à chaque objet dans le tableau
-            element.league = element;
+            element.league = {
+              name: element.name,
+              logo: element.logo,
+              id: element.id,
+            };
           }
           setLeagues(res);
-          setIsLoadLeagues(true);
-          console.log(res);
+          localStorage.setItem("leagues", JSON.stringify(res));
         })
         .catch(function (error) {
           console.log(error);
@@ -68,11 +75,14 @@ const Leagues = (props) => {
           // Parcourez le tableau en utilisant une boucle for
           for (const element of res) {
             // Ajoutez un index à chaque objet dans le tableau
-            element.league = element;
+            element.league = {
+              name: element.name,
+              logo: element.logo,
+              id: element.id,
+            };
           }
           setLeagues(res);
-          setIsLoadLeagues(true);
-          console.log(res);
+          localStorage.setItem("leagues", JSON.stringify(res));
         })
         .catch(function (error) {
           console.log(error);
