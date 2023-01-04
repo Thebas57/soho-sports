@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -9,13 +9,11 @@ import {
   FaFootballBall,
   FaFutbol,
   FaVolleyballBall,
+  FaFolderPlus,
 } from "react-icons/fa";
-import Leagues from "./Leagues";
 import { NavLink } from "react-router-dom";
 
 const NavbarHead = () => {
-  const [selectSport, setSelectSport] = useState("foot");
-
   /* Toggle la classe active link et enlève la classe sur les autres */
   const toggleActiveLink = (e) => {
     let elements = document.getElementsByClassName("active-navlink");
@@ -36,15 +34,34 @@ const NavbarHead = () => {
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
         <Container>
           <NavLink exact to="/" className="navbar-brand">
-            SOHO SPORT
+            SPORT RESULT
           </NavLink>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
               <NavDropdown title="Sites favoris" id="collasible-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Site 1</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">Site 2</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">Site 3</NavDropdown.Item>
+                <NavDropdown.Item
+                  target="_blank"
+                  href="https://www.flashscore.fr/"
+                >
+                  Flashscore
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  target="_blank"
+                  href="https://www.livescore.in/fr/volleyball/"
+                >
+                  Livescore Volley
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  target="_blank"
+                  href="https://www.lequipe.fr/Football/Directs"
+                >
+                  L'équipe
+                </NavDropdown.Item>
+                <div className="navItem">
+                  <input type="text" name="" id="" />
+                  <FaFolderPlus />
+                </div>
               </NavDropdown>
             </Nav>
             <Nav>

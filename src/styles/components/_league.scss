@@ -54,13 +54,19 @@
           margin-top: 20px !important;
           width: 100%;
           display: flex;
-          margin: auto;
           justify-content: space-around;
           .resultat {
             align-items: center;
             display: flex;
             width: 40%;
             justify-content: space-around;
+            .score{
+              font-weight: bold;
+              font-size: 1.1rem;
+            }
+            .ekip{
+              font-style: italic;
+            }
             .logo-ekip {
               img {
                 height: 50px;
@@ -70,18 +76,24 @@
         }
       }
     }
-    .list-leagues{
-      .leagueFav{
+    .list-leagues {
+      .leagueFav {
         display: flex;
         justify-content: space-between;
         width: 70%;
         margin: auto;
         cursor: pointer;
         color: rgb(97, 92, 92);
-        img{
+        a {
+          color: rgb(97, 92, 92);
+          &:hover {
+            color: black;
+          }
+        }
+        img {
           height: 100%;
         }
-        &:hover{
+        &:hover {
           color: black;
         }
       }
@@ -90,20 +102,21 @@
   @media screen and (max-width: 800px) {
     .league {
       grid-template-columns: 1fr;
-      .matchs{
-        .filter-matchs{
+      .matchs {
+        .filter-matchs {
           flex-direction: column;
           gap: 5px;
-          input, span{
+          input,
+          span {
             width: 50%;
           }
         }
         .list-matchs {
-          .match-detail{
+          .match-detail {
             flex-direction: column;
-            .resultat{
+            .resultat {
               width: 80%;
-              &::after{
+              &::after {
                 content: "";
                 position: absolute;
                 width: 70%;
@@ -120,6 +133,5 @@
     .list-leagues {
       display: none;
     }
-
   }
 }

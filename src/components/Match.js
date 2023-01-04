@@ -33,29 +33,29 @@ const Match = ({ match, sport }) => {
         <span className="logo-ekip">
           <img src={match.teams.home.logo} alt="logo-home" />
         </span>
-        <span>{match.teams.home.name}</span>
+        <span className="ekip">{match.teams.home.name}</span>
         {sport === "basketball" && (
           <>
-            <span>{match.scores.home.total}</span>
+            <span className="score">{match.scores.home.total}</span>
             <span> - </span>
-            <span>{match.scores.away.total}</span>
+            <span className="score">{match.scores.away.total}</span>
           </>
         )}
         {(sport === "rugby" || sport === "volley") && (
           <>
-            <span>{match.scores.home}</span>
+            <span className="score">{match.scores.home}</span>
             <span> - </span>
-            <span>{match.scores.away}</span>
+            <span className="score">{match.scores.away}</span>
           </>
         )}
         {sport === "foot" && (
           <>
-            <span>{match.goals.home}</span>
+            <span className="score">{match.goals.home}</span>
             <span> - </span>
-            <span>{match.goals.away}</span>
+            <span className="score">{match.goals.away}</span>
           </>
         )}
-        <span>{match.teams.away.name}</span>
+        <span className="ekip">{match.teams.away.name}</span>
         <span className="logo-ekip">
           <img src={match.teams.away.logo} alt="logo-home" />
         </span>

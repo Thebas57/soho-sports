@@ -4,6 +4,7 @@ import Match from "./Match";
 import { FaArrowLeft } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import LeaguesFav from "./LeaguesFav";
+import { ColorRing } from "react-loader-spinner";
 
 const League = (props) => {
   const [matchs, setMatchs] = useState([]);
@@ -12,6 +13,7 @@ const League = (props) => {
   const [dateMatch, setDateMatch] = useState();
   const [filterMatch, setFilterMatch] = useState("Tous");
   const [leagues, setLeagues] = useState([]);
+  const [loaderMatchs, setLoaderMatch] = useState(true);
 
   // Créer un tableau de matchs en fonction de la ligue
   const loadMatchs = (sport, id) => {
@@ -34,6 +36,9 @@ const League = (props) => {
       .catch(function (error) {
         console.log(error);
       });
+    setTimeout(() => {
+      setLoaderMatch(false);
+    }, 200);
   };
 
   // Handle les filtres
@@ -54,6 +59,7 @@ const League = (props) => {
 
   // Au changement de date, on retourne d'autres matchs
   const handleDate = (date) => {
+    setLoaderMatch(true);
     setDateMatch(date);
     makeRequest(sportName, leagueID, date)
       .then(function (response) {
@@ -68,14 +74,18 @@ const League = (props) => {
           }
         }
         setMatchs(response.data.response);
-        console.log(response.data);
       })
       .catch(function (error) {
         console.log(error);
       });
+    setTimeout(() => {
+      setLoaderMatch(false);
+    }, 200);
   };
 
   useEffect(() => {
+    setLoaderMatch(true);
+
     setLeagues(JSON.parse(localStorage.getItem("leagues")));
     if ("name" in props.location) {
       localStorage.setItem("sport", props.location.name);
@@ -107,7 +117,7 @@ const League = (props) => {
         <h1>Liste des matchs de {sportName}</h1>
       </div>
       <div className="league">
-        <LeaguesFav leagues={leagues} />
+        <LeaguesFav leagues={leagues} sportName={sportName} />
         <div className="matchs">
           <div className="filter-matchs">
             <input
@@ -147,7 +157,17 @@ const League = (props) => {
             </span>
           </div>
           <div className="list-matchs">
-            {filterMatch !== "Tous" ? (
+            {loaderMatchs ? (
+              <ColorRing
+                visible={true}
+                height="80"
+                width="80"
+                ariaLabel="blocks-loading"
+                wrapperStyle={{}}
+                wrapperClass="blocks-wrapper"
+                colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
+              />
+            ) : filterMatch !== "Tous" ? (
               <>
                 {matchs
                   ?.filter((match) => match.status.long === filterMatch)
@@ -169,7 +189,7 @@ const League = (props) => {
                   </span>
                 )}
               </>
-            ) : (
+            ) : matchs.length > 0 ? (
               <>
                 {matchs?.map((match) => {
                   return (
@@ -181,11 +201,12 @@ const League = (props) => {
                   );
                 })}
               </>
-            )}
-            {matchs.length === 0 && (
-              <span className="info-match">
-                Aucun match trouvé à cette date : {dateMatch}{" "}
-              </span>
+            ) : (
+              matchs.length === 0 && (
+                <span className="info-match">
+                  Aucun match trouvé à cette date : {dateMatch}{" "}
+                </span>
+              )
             )}
           </div>
         </div>

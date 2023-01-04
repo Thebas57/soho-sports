@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 
-const LeaguesFav = ({ leagues }) => {
+const LeaguesFav = ({ leagues, sportName }) => {
   const [reload, setReload] = useState(false);
 
   //Ajoute les favs / unfavs dans le localSotrage
@@ -58,7 +59,17 @@ const LeaguesFav = ({ leagues }) => {
         return (
           <>
             <div key={league.league.id} className="leagueFav">
-              <span>{league.league.name}</span>
+              <NavLink
+                to={{
+                  pathname: "/league",
+                  league: league.league,
+                  name: sportName
+                }}
+                exact
+              >
+                <span>{league.league.name}</span>
+              </NavLink>
+
               {localStorage.getItem("leagueFavs") &&
               JSON.parse(localStorage.getItem("leagueFavs")).indexOf(
                 league.league.id
